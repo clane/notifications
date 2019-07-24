@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>example</title>
+    <style>
+      #content { width:960px; margin:auto; } 
+	  .notificationContainer { width:30%; border:2px solid #000; padding:10px; } 
+    </style>
+  </head>
+  <body>
+    <section id="content">
+
+	  <h1>Non-user Initiated Static Notification - Text and Close Button</h1>
+
+      <p>Content goes here</p>
+
+	  <div id="notificationsRegion" aria-live="polite">
+		
+	  </div>
+    </section>
+	
+	<script>
+		var notificationsRegion = document.getElementById('notificationsRegion');
+        var notificationsCount = 0;
+	    var notificationContainer= document.createElement('div');
+	    notificationContainer.className = 'notificationContainer';
+	    var notificationCloseButton = document.createElement('button');
+	    notificationCloseButton.setAttribute('aria-hidden', 'true');
+        var notificationCloseButtonText  =  document.createTextNode("close"); 
+        var notificationText =  document.createTextNode("You've got mail! (ESC to close)"); 
+		notificationContainer.appendChild(notificationText); 
+		notificationCloseButton.appendChild(notificationCloseButtonText); 
+		notificationContainer.appendChild(notificationCloseButton);
+		setTimeout(()=>{ notificationsRegion.appendChild(notificationContainer); }, 5000); 
+
+        function closeNotification() {
+			notificationContainer.style.display = "none";
+		}
+
+        notificationCloseButton.addEventListener('click', ()=> { closeNotification(); }, false); 
+
+        window.addEventListener('keydown', (e)=> {
+			  if(e.key === "Escape") {
+			    closeNotification();
+              } 
+			}
+		, false); 
+
+	</script>
+
+
+  </body>
+</html>
+
